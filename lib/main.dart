@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -13,29 +15,29 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  const MyHomePage({super.key, required this.title});
 
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage>
     with SingleTickerProviderStateMixin {
-  AnimationController _controller;
-  Animation _animation;
+  late final AnimationController _controller;
+  late final Animation _animation;
 
   @override
   void initState() {
     _controller =
-        AnimationController(duration: Duration(milliseconds: 500), vsync: this);
+        AnimationController(duration: const Duration(milliseconds: 500), vsync: this);
 
     _animation = CurvedAnimation(parent: _controller, curve: Curves.bounceOut);
     super.initState();
@@ -58,13 +60,13 @@ class _MyHomePageState extends State<MyHomePage>
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             FoldingCell(
-              animation: _animation,
+              listenable: _animation,
               controller: _controller,
-              cellSize: Size(200, 200),
+              cellSize: const Size(200, 200),
               innerTopWidget: Container(
                 color: Colors.purpleAccent,
-                child: IconButton(
-                  icon: const Icon(Icons.accessible_forward,
+                child: const IconButton(
+                  icon: Icon(Icons.accessible_forward,
                       color: Colors.black, size: 120),
                   onPressed: null,
                 ),
@@ -75,15 +77,12 @@ class _MyHomePageState extends State<MyHomePage>
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
                     ElevatedButton(
-                        child: Text('Press Me'),
+                        child: const Text('Press Me'),
                         onPressed: () {
-                          print('Pressed');
                         }),
                     IconButton(
                       icon: const Icon(Icons.fastfood),
-                      onPressed: () {
-                        print('Icon pressed');
-                      },
+                      onPressed: () {                        },
                     )
                   ],
                 ),
@@ -98,14 +97,14 @@ class _MyHomePageState extends State<MyHomePage>
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 ElevatedButton(
-                    child: Text('Unfold'),
+                    child: const Text('Unfold'),
                     onPressed: () {
                       _controller.reset();
                       _controller.forward();
                     }),
-                SizedBox(width: 20),
+                const SizedBox(width: 20),
                 ElevatedButton(
-                    child: Text('Collapse'),
+                    child: const Text('Collapse'),
                     onPressed: () {
                       _controller.reverse();
                     }),
@@ -117,9 +116,7 @@ class _MyHomePageState extends State<MyHomePage>
     );
   }
 
-  void onPressed() {
-    print('Pressed');
-  }
+  void onPressed() {}
 }
 
 class FoldingCell extends AnimatedWidget {
@@ -130,16 +127,14 @@ class FoldingCell extends AnimatedWidget {
   final AnimationController controller;
 
   const FoldingCell(
-      {Key key,
-      @required Animation animation,
-      @required this.controller,
-      @required this.frontWidget,
-      @required this.innerTopWidget,
-      @required this.innerBottomWidget,
-      this.cellSize = const Size(100, 100)})
-      : super(key: key, listenable: animation);
+      {super.key,
+      required this.controller,
+      required this.frontWidget,
+      required this.innerTopWidget,
+      required this.innerBottomWidget,
+      this.cellSize = const Size(100, 100), required super.listenable});
 
-  Animation get _animation => listenable;
+  Animation get _animation => listenable as Animation;
 
   @override
   Widget build(BuildContext context) {
@@ -155,7 +150,7 @@ class FoldingCell extends AnimatedWidget {
               width: cellSize.width,
               child: Stack(
                 children: <Widget>[
-                  Container(
+                  SizedBox(
                     height: cellSize.height,
                     width: cellSize.width,
                     child: innerTopWidget,
@@ -168,7 +163,7 @@ class FoldingCell extends AnimatedWidget {
                     child: Transform(
                       alignment: Alignment.center,
                       transform: Matrix4.rotationX(math.pi),
-                      child: Container(
+                      child: SizedBox(
                         height: cellSize.height,
                         width: cellSize.width,
                         child: innerBottomWidget,
@@ -182,7 +177,7 @@ class FoldingCell extends AnimatedWidget {
                       ..rotateX(angle)),
                     child: Opacity(
                       opacity: angle >= 1.5708 ? 0.0 : 1.0,
-                      child: Container(
+                      child: SizedBox(
                         height: angle >= 1.5708 ? 0.0 : cellSize.height,
                         width: angle >= 1.5708 ? 0.0 : cellSize.width,
                         child: frontWidget,
@@ -197,9 +192,10 @@ class FoldingCell extends AnimatedWidget {
   }
 
   void onTapped() {
-    if (_animation.isCompleted)
+    if (_animation.isCompleted) {
       controller.reverse();
-    else
+    } else {
       controller.forward();
+    }
   }
 }
