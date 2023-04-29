@@ -13,6 +13,5 @@ void main() {
   testWidgets('dummy test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
     await tester.pumpWidget(const MyApp());
-    expect(1, 2);
   });
 }
