@@ -42,6 +42,12 @@ jobs:
       - name: Update version
         run: cider bump build
 
+      - name: Git config email
+        run: git config --global user.email "you@example.com"
+
+      - name: Git config name
+        run: git config --global user.name "Your Name"
+
       - name: Git status
         run: 
           git status
