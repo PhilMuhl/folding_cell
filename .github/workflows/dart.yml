@@ -61,4 +61,3 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          force: true
