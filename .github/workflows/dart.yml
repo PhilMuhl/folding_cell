@@ -37,7 +37,7 @@ jobs:
         run: flutter test
 
       - name: Update version
-        uses: cidertool/cider-action@v0
+        uses: cidertool/cider-action@v1
         with:
           version: latest
           args: bump build
