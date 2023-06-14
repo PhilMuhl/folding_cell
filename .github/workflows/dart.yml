@@ -48,9 +48,9 @@ jobs:
       - name: Git config name
         run: git config --global user.name "Your Name"
 
-      - name: Git fetch 1
+      - name: Git pull 1
         run: 
-          git fetch
+          git pull
 
       - name: Git status
         run: 
