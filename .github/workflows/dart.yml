@@ -35,3 +35,9 @@ jobs:
 
       - name: Run tests
         run: flutter test
+
+      - name: Update version
+        uses: cidertool/cider-action@v0
+        with:
+          version: latest
+          args: bump build
