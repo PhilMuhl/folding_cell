@@ -1,0 +1,70 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+name: Flutter
+
+on:
+  workflow_dispatch:
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Flutter SDK
+        uses: flutter-actions/setup-flutter@v2
+        with:
+          channel: stable
+          version: 3.10.4
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Install cider
+        run: dart pub global activate cider
+
+      - name: Analyze project source
+        run: flutter analyze
+
+      - name: Run tests
+        run: flutter test
+
+      - name: Update version
+        run: cider bump build
+
+      # - name: Write back to github
+      #   uses: mikeal/publish-to-github-action@master
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Git config email
+        run: git config --global user.email "you@example.com"
+
+      - name: Git config name
+        run: git config --global user.name "Your Name"
+
+      - name: Git status
+        run: 
+          git status
+      - name: Git add
+        run: 
+          git add .
+      - name: Git commit
+        run: 
+          git commit -a -m "Bump build number"
+      
+      # - name: Git pull
+      #   run: 
+      #     git pull
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          force: true
