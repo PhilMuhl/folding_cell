@@ -63,7 +63,7 @@ jobs:
       
       - name: Git fetch 2
         run: 
-          git pull
+          git fetch
 
       - name: Push changes
         uses: ad-m/github-push-action@master
