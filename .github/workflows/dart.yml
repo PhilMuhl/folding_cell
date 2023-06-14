@@ -63,12 +63,3 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           force: true
-
-      # - name: Update version
-      #   uses: cidertool/cider-action@v0.1.2
-      #   with:
-      #     version: latest
-      #     args: bump build
-      #   env:
-      #     # The auto-generated GitHub token is required in order to download release assets from the GitHub API.
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
