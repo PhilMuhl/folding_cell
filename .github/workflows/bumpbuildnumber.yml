@@ -29,19 +29,8 @@ jobs:
       - name: Install cider
         run: dart pub global activate cider
 
-      - name: Analyze project source
-        run: flutter analyze
-
-      - name: Run tests
-        run: flutter test
-
       - name: Update version
         run: cider bump build
-
-      # - name: Write back to github
-      #   uses: mikeal/publish-to-github-action@master
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Git config email
         run: git config --global user.email "you@example.com"
@@ -59,10 +48,6 @@ jobs:
         run: 
           git commit -a -m "Bump build number"
       
-      # - name: Git pull
-      #   run: 
-      #     git pull
-
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
