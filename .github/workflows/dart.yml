@@ -61,12 +61,12 @@ jobs:
         run: 
           git commit -a -m "Bump build number"
       
-      - name: Git pull
-        run: 
-          git pull
+      # - name: Git pull
+      #   run: 
+      #     git pull
 
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          force: false
+          force: true
