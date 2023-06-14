@@ -42,10 +42,14 @@ jobs:
       - name: Update version
         run: cider bump build
 
-      - name: Git
+      - name: Git status
         run: 
           git status
+      - name: Git add
+        run: 
           git add .
+      - name: Git commit
+        run: 
           git commit -m "Build number bump"
       
       - name: Push changes
