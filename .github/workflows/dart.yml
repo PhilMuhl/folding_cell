@@ -42,17 +42,18 @@ jobs:
       - name: Update version
         run: cider bump build
 
-      - name: Status
-        run: git status
+      - name: Git
+        run: 
+          git status
+          git add .
+          git commit -m "Build number bump"
+      
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          force: true
 
-      - name: Add
-        run: git add .
-
-      - name: Commit changes
-        run: git commit -m "Build number bump"
-
-      - name: Push
-        run: git push origin HEAD:master
       # - name: Update version
       #   uses: cidertool/cider-action@v0.1.2
       #   with:
