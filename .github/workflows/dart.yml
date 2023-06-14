@@ -46,13 +46,9 @@ jobs:
       - name: Git config name
         run: git config --global user.name "Your Name"
 
-      - name: Git checkout
-        run: 
-          git checkout master
-
       - name: Git fetch 1
         run: 
-          git pull
+          git fetch
 
       - name: Git status
         run: 
@@ -66,7 +62,7 @@ jobs:
       
       - name: Git fetch 2
         run: 
-          git fetch
+          git pull
 
       - name: Push changes
         uses: ad-m/github-push-action@master
