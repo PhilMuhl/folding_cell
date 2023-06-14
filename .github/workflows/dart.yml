@@ -41,6 +41,18 @@ jobs:
 
       - name: Update version
         run: cider bump build
+
+      - name: Status
+        run: git status
+
+      - name: Add
+        run: git add .
+
+      - name: Commit changes
+        run: git commit -m "Build number bump"
+
+      - name: Push
+        run: git push origin HEAD:master
       # - name: Update version
       #   uses: cidertool/cider-action@v0.1.2
       #   with:
